@@ -211,6 +211,21 @@ fn default_excludes() -> ScannerList<ScannerExcludePattern> {
 		"dir:.swiftpm",
 		"dir:.mypy_cache",
 		"dir:.pytest_cache",
+		// Dev tooling and repo scaffolding: maintenance scripts, cargo
+		// xtask helpers, generated websites, docs/eval harnesses and
+		// demos. These rarely hold production trust boundaries and are a
+		// recurring source of low-signal findings.
+		"dir:tools",
+		"dir:xtask",
+		"dir:tooling",
+		"dir:scripts",
+		"dir:website",
+		"dir:eval",
+		"dir:bench",
+		"dir:benches",
+		"dir:demo",
+		"dir:demos",
+		"dir:samples",
 	])
 }
 
@@ -975,6 +990,10 @@ mod tests {
 		assert!(cfg.exclude_path_substrings.iter().any(|e| e == "dotnet-output:bin"));
 		assert!(cfg.exclude_path_substrings.iter().any(|e| e == "dotnet-output:obj"));
 		assert!(cfg.exclude_path_substrings.iter().any(|e| e == "dir:fuzz"));
+		assert!(cfg.exclude_path_substrings.iter().any(|e| e == "dir:tools"));
+		assert!(cfg.exclude_path_substrings.iter().any(|e| e == "dir:xtask"));
+		assert!(cfg.exclude_path_substrings.iter().any(|e| e == "dir:scripts"));
+		assert!(cfg.exclude_path_substrings.iter().any(|e| e == "dir:website"));
 	}
 
 	#[test]
